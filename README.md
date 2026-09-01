@@ -1,78 +1,81 @@
 # 📱 Agenda de Contatos
 
-Uma aplicação simples de **Agenda de Contatos desenvolvida em Java**, executada via terminal. O projeto permite cadastrar, visualizar, pesquisar e excluir um contato através de um menu interativo.
+Aplicação de **Agenda de Contatos desenvolvida em Java**, executada através do terminal. O sistema permite cadastrar, listar, pesquisar e excluir múltiplos contatos.
 
-> **Versão atual:** `v0.0.0`
-
----
-
-## 📋 Sobre o projeto
-
-O projeto foi desenvolvido com o objetivo de praticar conceitos fundamentais da linguagem **Java**, como:
-
-- Entrada de dados pelo terminal;
-- Estruturas condicionais;
-- Estruturas de repetição;
-- `switch`;
-- Variáveis e tipos de dados;
-- Comparação de Strings;
-- Organização de um menu interativo;
-- Utilização da classe `Scanner`.
-
-A aplicação apresenta um menu que permanece disponível até que o usuário escolha a opção **Sair**.
+> **Versão:** `v0.1.0`
+> **Status:** Em desenvolvimento
 
 ---
 
-## ⚙️ Funcionalidades
+## 📖 Sobre o projeto
 
-Atualmente, o sistema possui as seguintes funcionalidades:
+A **Agenda de Contatos** é uma aplicação de console desenvolvida em Java para gerenciamento básico de contatos.
+
+Nesta versão, o sistema evoluiu para trabalhar com **múltiplos contatos**, utilizando arrays para armazenar os nomes, números de celular e endereços de e-mail.
+
+O programa possui um menu interativo que permanece em execução até que o usuário escolha a opção **Sair**.
+
+---
+
+## ✨ Funcionalidades
 
 ### ➕ Adicionar contato
 
-Permite cadastrar:
+Permite cadastrar um novo contato informando:
 
-- Nome;
-- Número de celular;
-- E-mail.
+* Nome;
+* Número de celular;
+* E-mail.
 
-Após o preenchimento dos dados, o sistema informa que o contato foi salvo com sucesso.
+Cada novo contato é armazenado nos respectivos arrays e o contador de contatos é incrementado.
 
-### 📋 Listar contato
+---
 
-Exibe os dados do contato cadastrado:
+### 📋 Listar contatos
 
-- Nome;
-- Celular;
-- E-mail.
+Exibe todos os contatos cadastrados.
 
-Caso nenhum contato esteja cadastrado, o sistema informa que não há contatos disponíveis.
+Para cada contato são apresentados:
+
+* Número do contato;
+* Nome;
+* Celular;
+* E-mail.
+
+A listagem é realizada percorrendo os contatos armazenados através de um laço `for`.
+
+---
 
 ### 🔎 Procurar contato
 
 Permite pesquisar um contato pelo nome.
 
-A pesquisa não diferencia letras maiúsculas de minúsculas, utilizando `equalsIgnoreCase()`.
-
-### 🗑️ Excluir contato
-
-Remove os dados do contato atualmente cadastrado.
-
-Caso não exista um contato, o sistema informa que nenhum contato está cadastrado.
-
-### 🚪 Sair
-
-Encerra a execução do programa através da opção **5 - Sair**.
+A busca percorre todos os contatos cadastrados e utiliza `equalsIgnoreCase()`, permitindo encontrar o nome independentemente de letras maiúsculas ou minúsculas.
 
 ---
 
-## 🖥️ Menu do sistema
+### 🗑️ Excluir contato
 
-Ao iniciar, o programa apresenta o seguinte menu:
+Permite excluir um contato informando seu nome.
+
+Quando o contato é encontrado, os elementos seguintes são deslocados uma posição para preencher o espaço deixado pelo contato removido. Depois disso, a última posição utilizada é definida como `null` e o contador é decrementado.
+
+---
+
+### 🚪 Sair
+
+A opção **5 - Sair** encerra o loop principal e finaliza a execução da aplicação.
+
+---
+
+## 🖥️ Menu
+
+Ao iniciar, o programa apresenta:
 
 ```text
 ==========================
      AGENDA DE CONTATOS
-          v0.0.0
+          v0.1.0
 ==========================
 
 Bem-vindo!
@@ -86,106 +89,167 @@ Bem-vindo!
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## 🛠️ Tecnologias
 
-- **Java**
-- `java.util.Scanner`
-- Aplicação executada via **terminal/console**
+* **Java**
+* **Scanner**
+* Arrays (`String[]`)
+* Estruturas de repetição
+* Estruturas condicionais
+* `switch`
+* `equalsIgnoreCase()`
 
-A classe principal pertence ao pacote `br.edu.principal` e utiliza `Scanner` para receber os dados informados pelo usuário.
+O projeto utiliza a classe `Scanner` para receber as informações digitadas pelo usuário no terminal.
 
 ---
 
-## 📁 Estrutura atual
+## 📂 Estrutura do projeto
 
 ```text
-projeto/
+Agenda-de-Contatos/
+│
 └── Principal.java
+```
+
+Pacote utilizado:
+
+```text
+br.edu.principal
 ```
 
 Classe principal:
 
 ```text
-br.edu.principal.Principal
+Principal
 ```
 
 ---
 
 ## ▶️ Como executar
 
-### 1. Instale o Java
+### Pré-requisitos
 
-Verifique se o Java está instalado:
+É necessário possuir o **Java JDK** instalado.
+
+Verifique a instalação com:
 
 ```bash
 java -version
 ```
 
-E o compilador:
+E:
 
 ```bash
 javac -version
 ```
 
-### 2. Compile o projeto
+### Compilação
 
-Dentro da pasta correspondente ao projeto, compile o arquivo:
+Compile o arquivo Java:
 
 ```bash
 javac Principal.java
 ```
 
-### 3. Execute
+### Execução
+
+Execute o programa:
 
 ```bash
 java Principal
 ```
 
-> Dependendo da estrutura de pastas e do pacote utilizado, pode ser necessário executar o programa a partir do diretório raiz do projeto.
+> Caso esteja utilizando a estrutura de pacotes do projeto, a compilação e execução devem ser feitas respeitando a estrutura de diretórios correspondente ao pacote `br.edu.principal`.
 
 ---
 
-## 📌 Limitações da versão atual
+## 🧠 Funcionamento interno
 
-A versão `v0.0.0` possui uma implementação inicial e algumas limitações:
+Os contatos são armazenados em três arrays:
 
-- O sistema trabalha com **apenas um contato por vez**.
-- Os dados são armazenados somente durante a execução do programa.
-- Não existe banco de dados ou arquivo para persistência.
-- Ao encerrar o programa, os dados cadastrados são perdidos.
-- Ainda não há validação específica para telefone ou e-mail.
-- Não existem funcionalidades de edição de contatos.
+```text
+nomes[]
+celulares[]
+emails[]
+```
 
----
+Cada posição dos arrays representa um contato.
 
-## 🚀 Possíveis melhorias futuras
+Por exemplo:
 
-Algumas funcionalidades que podem ser adicionadas em versões futuras:
+```text
+Posição 0 → João | 88999999999 | joao@email.com
+Posição 1 → Maria | 88988888888 | maria@email.com
+```
 
-- [ ] Cadastro de múltiplos contatos;
-- [ ] Edição de contatos;
-- [ ] Armazenamento em arquivo;
-- [ ] Integração com banco de dados;
-- [ ] Validação de e-mail;
-- [ ] Formatação do número de telefone;
-- [ ] Ordenação dos contatos;
-- [ ] Busca por diferentes informações;
-- [ ] Interface gráfica;
-- [ ] Separação do projeto em diferentes classes;
-- [ ] Implementação de orientação a objetos mais completa.
+A variável `cont` controla quantos contatos estão atualmente cadastrados.
 
 ---
 
-## 🎯 Objetivo acadêmico
+## 🗑️ Processo de exclusão
 
-Este projeto serve como uma aplicação prática para o aprendizado dos fundamentos da programação em **Java**, especialmente entrada de dados, estruturas de controle e desenvolvimento de aplicações interativas no terminal.
+Quando um contato é excluído, o sistema:
+
+1. Procura o nome informado;
+2. Identifica o índice do contato;
+3. Desloca os contatos seguintes uma posição para trás;
+4. Limpa a última posição;
+5. Diminui o contador de contatos.
+
+Esse processo evita deixar um espaço vazio no meio dos contatos cadastrados.
 
 ---
 
-## 👨‍💻 Status
+## ⚠️ Limitações atuais
 
-**Em desenvolvimento**
+A versão `v0.1.0` ainda possui algumas limitações:
 
-Versão atual: **v0.0.0**
+* A capacidade inicial dos arrays é de **2 contatos**.
+* Não há expansão automática dos arrays quando a capacidade é atingida.
+* Os dados são mantidos apenas enquanto o programa está em execução.
+* Os contatos não são salvos em arquivos ou banco de dados.
+* Não existe funcionalidade para editar um contato.
+* Não há validação específica de celular ou e-mail.
 
-Novas funcionalidades poderão ser adicionadas conforme a evolução do projeto.
+---
+
+## 🚀 Melhorias futuras
+
+Possíveis evoluções do projeto:
+
+* [ ] Permitir mais contatos;
+* [ ] Implementar expansão automática da capacidade;
+* [ ] Editar contatos;
+* [ ] Salvar contatos em arquivo;
+* [ ] Utilizar banco de dados;
+* [ ] Validar e-mails;
+* [ ] Validar números de telefone;
+* [ ] Criar uma classe `Contato`;
+* [ ] Utilizar `ArrayList`;
+* [ ] Criar uma interface gráfica;
+* [ ] Implementar ordenação dos contatos.
+
+---
+
+## 🎯 Objetivo
+
+O projeto tem como objetivo praticar conceitos fundamentais de **programação em Java**, especialmente:
+
+* Arrays;
+* Variáveis;
+* Loops;
+* Condicionais;
+* `switch`;
+* Entrada de dados;
+* Manipulação de Strings;
+* Busca de elementos;
+* Remoção e reorganização de elementos.
+
+---
+
+## 📌 Versão
+
+**v0.1.0**
+
+Esta versão representa uma evolução da aplicação inicial, passando de um único contato para o gerenciamento de múltiplos contatos.
+
