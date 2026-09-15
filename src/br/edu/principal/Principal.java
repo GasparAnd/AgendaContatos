@@ -27,7 +27,7 @@ public class Principal {
                 case 3-> pesquisar(sc, nomes, celulares, emails);
                 case 4-> atualizar(sc, nomes, celulares, emails);           	
                 case 5-> excluir(sc, nomes, celulares, emails);          	
-                case 6-> continuar = sair();
+                case 6-> sair(continuar);
                 default -> System.out.println("Opção inválida!");
             }
         }
@@ -184,9 +184,8 @@ public class Principal {
         }
     }
     
-    public static boolean sair() {
-    System.out.println("Saindo da Agenda de Contatos...");
-    return false;
- 
+    public static void sair(boolean continuar) {
+    	System.out.println("Saindo da Agenda de Contatos...");
+        continuar = false;
     }
 }
