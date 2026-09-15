@@ -1,242 +1,165 @@
 # 📱 Agenda de Contatos
 
-Sistema de agenda de contatos desenvolvido em **Java**, com o objetivo de praticar conceitos fundamentais de programação, como listas, métodos, estruturas de repetição, condicionais e entrada de dados pelo teclado.
+Sistema de **Agenda de Contatos desenvolvido em Java**, criado para praticar conceitos fundamentais de programação e evoluir gradualmente a organização, estrutura e manutenção do código.
 
-## 📌 Versão
-
-**v1.0.0**
-
-Nesta versão, o código foi reorganizado utilizando **métodos**, deixando o programa mais organizado e fácil de entender e manter.
+O projeto passou por diversas versões, começando com um cadastro simples e evoluindo para uma aplicação organizada em **três classes**, cada uma com uma responsabilidade específica.
 
 ---
 
-## 🚀 Funcionalidades
+## 📌 Versão atual
 
-O sistema possui as seguintes opções:
+### `v1.1.0`
 
-1. **Adicionar contato**
-2. **Listar contatos**
-3. **Procurar contato**
-4. **Alterar contato**
-5. **Excluir contato**
-6. **Sair do programa**
+Nesta versão, o projeto foi reorganizado em **três classes principais**:
+
+```text
+Principal.java
+Agenda.java
+Uteis.java
+```
+
+Essa divisão permite separar melhor as responsabilidades do programa, deixando o código mais organizado e preparado para futuras funcionalidades.
+
+Também foi adicionada a opção **7 — Informações Sobre a Agenda de Contatos**.
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+# 🚀 Funcionalidades
 
-* **Java**
+O sistema possui atualmente:
+
+| Opção | Funcionalidade                |
+| ----: | ----------------------------- |
+|     1 | ➕ Adicionar contato           |
+|     2 | 📋 Listar contatos            |
+|     3 | 🔎 Procurar contato           |
+|     4 | ✏️ Alterar contato            |
+|     5 | 🗑️ Excluir contato           |
+|     6 | 🚪 Sair                       |
+|     7 | ℹ️ Informações sobre a agenda |
+
+---
+
+# 🛠️ Tecnologias utilizadas
+
+* ☕ **Java**
 * `ArrayList`
 * `List`
 * `Scanner`
-* Estrutura `while`
-* Estrutura `switch`
-* Métodos
-* Variável `boolean`
+* `JOptionPane`
+* `while`
+* `switch`
+* Métodos `static`
+* `boolean`
+* `equalsIgnoreCase()`
+* `add()`
+* `get()`
+* `set()`
+* `remove()`
+* Pacotes Java
 
 ---
 
-## 📂 Estrutura do programa
+# 📂 Estrutura do projeto
 
-O programa foi dividido em métodos para separar cada função da agenda:
+O projeto está organizado dentro do pacote:
 
-| Método                  | Função                                |
-| ----------------------- | ------------------------------------- |
-| `mostraInicializacao()` | Exibe o título e a versão do programa |
-| `mostraMenu()`          | Exibe as opções do menu               |
-| `selecionaOpcao()`      | Recebe a opção escolhida pelo usuário |
-| `adicionar()`           | Cadastra um novo contato              |
-| `listar()`              | Exibe todos os contatos               |
-| `pesquisar()`           | Procura um contato pelo nome          |
-| `atualizar()`           | Altera os dados de um contato         |
-| `excluir()`             | Remove um contato                     |
-| `sair()`                | Encerra o programa                    |
+```java
+package br.edu.principal;
+```
 
----
-
-## 📋 Funcionamento
-
-Ao iniciar o programa, uma mensagem de boas-vindas é exibida:
+Estrutura:
 
 ```text
-==========================
-     AGENDA DE CONTATOS
-          v1.0.0
-==========================
-Bem-vindo!
-```
-
-Em seguida, o menu é apresentado:
-
-```text
-1 - Adicionar contato
-2 - Listar contatos
-3 - Procurar contato
-4 - Alterar contato
-5 - Excluir contato
-6 - Sair
-```
-
-O usuário escolhe uma opção e o programa executa o método correspondente.
-
----
-
-## 💾 Armazenamento dos contatos
-
-Os contatos são armazenados em três listas:
-
-```java
-List<String> nomes = new ArrayList<>();
-List<String> celulares = new ArrayList<>();
-List<String> emails = new ArrayList<>();
-```
-
-Cada posição representa um contato.
-
-Por exemplo:
-
-```text
-nomes[0]       → João
-celulares[0]   → 99999-9999
-emails[0]      → joao@email.com
-```
-
-As três listas utilizam a mesma posição para manter os dados do contato relacionados.
-
----
-
-## 🔎 Pesquisa de contatos
-
-A pesquisa é realizada pelo nome utilizando:
-
-```java
-equalsIgnoreCase()
-```
-
-Isso permite procurar o contato sem diferenciar letras maiúsculas e minúsculas.
-
-Por exemplo:
-
-```text
-João
-joão
-JOÃO
-```
-
-podem ser encontrados como o mesmo nome.
-
----
-
-## ✏️ Alteração de contatos
-
-Na opção **Alterar contato**, o programa primeiro procura o contato pelo nome.
-
-Depois, o usuário pode informar:
-
-* Novo nome
-* Novo celular
-* Novo email
-
-Os valores são atualizados nas listas utilizando:
-
-```java
-set()
+src/
+└── br/
+    └── edu/
+        └── principal/
+            ├── Principal.java
+            ├── Agenda.java
+            └── Uteis.java
 ```
 
 ---
 
-## 🗑️ Exclusão de contatos
+# 🧩 Organização das classes
 
-Na opção **Excluir contato**, o programa procura o contato pelo nome e remove os dados das três listas utilizando:
+## `Principal.java`
+
+É a classe responsável pelo **fluxo principal da aplicação**.
+
+Suas responsabilidades incluem:
+
+* Criar as listas de contatos;
+* Criar o `Scanner`;
+* Iniciar o programa;
+* Controlar o `while`;
+* Receber a opção escolhida;
+* Direcionar cada opção para o método correspondente.
+
+Exemplo:
 
 ```java
-remove()
-```
-
-A mesma posição é removida das três listas para manter os dados organizados.
-
----
-
-## 🔴 Saída do programa
-
-Na versão atual, o método `sair()` retorna um valor `boolean`:
-
-```java
-public static boolean sair() {
-    System.out.println("Saindo da Agenda de Contatos...");
-    return false;
+switch (opcao) {
+    case 1 -> Agenda.adicionar(sc, nomes, celulares, emails);
+    case 2 -> Agenda.listar(nomes, celulares, emails);
+    case 3 -> Agenda.pesquisar(sc, nomes, celulares, emails);
+    case 4 -> Agenda.atualizar(sc, nomes, celulares, emails);
+    case 5 -> Agenda.excluir(sc, nomes, celulares, emails);
+    case 6 -> Uteis.sair(continuar);
+    case 7 -> Uteis.sobre();
 }
 ```
 
-No `main`, esse valor é utilizado para alterar a variável `continuar`:
+---
+
+## `Agenda.java`
+
+A classe `Agenda` concentra as operações relacionadas diretamente aos contatos.
+
+### Métodos:
+
+| Método        | Responsabilidade    |
+| ------------- | ------------------- |
+| `adicionar()` | Cadastra um contato |
+| `listar()`    | Exibe os contatos   |
+| `pesquisar()` | Procura um contato  |
+| `atualizar()` | Altera um contato   |
+| `excluir()`   | Remove um contato   |
+
+Essa separação evita colocar toda a lógica de gerenciamento dentro da classe `Principal`.
+
+---
+
+## `Uteis.java`
+
+A classe `Uteis` reúne funcionalidades auxiliares do programa.
+
+### Métodos:
+
+| Método                  | Responsabilidade                  |
+| ----------------------- | --------------------------------- |
+| `mostraInicializacao()` | Exibe o título e a versão         |
+| `mostraMenu()`          | Exibe o menu                      |
+| `selecionaOpcao()`      | Recebe a opção do usuário         |
+| `sair()`                | Exibe a mensagem de saída         |
+| `sobre()`               | Exibe informações sobre o projeto |
+
+A classe também utiliza:
 
 ```java
-case 6 -> continuar = sair();
+import javax.swing.JOptionPane;
 ```
 
-Quando o método retorna `false`, a variável `continuar` também passa a ser `false`.
+para apresentar as informações da opção **Sobre** através de uma janela.
 
-Como o menu está dentro de:
+---
+
+# 💾 Armazenamento dos contatos
+
+Os contatos são armazenados utilizando três listas:
 
 ```java
-while (continuar)
+List<String> nomes = new ArrayList<>();
+List<String> celula
 ```
-
-o programa encerra quando `continuar` recebe `false`.
-
----
-
-## 📈 Evolução do projeto
-
-### v0.0.0
-
-* Cadastro de apenas um contato.
-* Uso de variáveis `String`.
-
-### v0.1.0
-
-* Cadastro de vários contatos.
-* Uso de arrays.
-* Capacidade inicial limitada.
-
-### v0.2.0
-
-* Substituição dos arrays por `List` e `ArrayList`.
-* Cadastro de vários contatos sem tamanho fixo.
-
-### v0.3.0
-
-* Adicionada a função de **alterar contatos**.
-* Menu passou a possuir 6 opções.
-
-### v1.0.0
-
-* Código reorganizado em **métodos**.
-* Cada funcionalidade passou a ter seu próprio método.
-* Melhor organização e separação das responsabilidades.
-* Utilização de `boolean` para controlar a execução do menu.
-* Método `sair()` passou a retornar `false` para encerrar o programa.
-
----
-
-## 🎯 Objetivo da versão 1.0.0
-
-A principal mudança desta versão foi a **organização do código**.
-
-Em vez de colocar toda a lógica dentro do `main`, cada funcionalidade foi separada em um método específico.
-
-Isso torna o código:
-
-* Mais organizado;
-* Mais fácil de entender;
-* Mais fácil de corrigir;
-* Mais fácil de atualizar;
-* Mais próximo de uma estrutura profissional de programação.
-
----
-
-## 👨‍💻 Autor
-
-**Andresson Viana Gaspar**
-
-Projeto desenvolvido para prática e aprendizado de **Java e Programação Orientada a Estruturas e Métodos**.
