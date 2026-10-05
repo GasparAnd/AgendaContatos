@@ -1,59 +1,59 @@
 # 📱 Agenda de Contatos
 
-Sistema de **Agenda de Contatos desenvolvido em Java**, criado para praticar conceitos fundamentais de programação e acompanhar a evolução da organização e estruturação de um projeto.
+Projeto didático de **Agenda de Contatos desenvolvido em Java** na disciplina de **Programação Orientada a Objetos (POO)**. Criado para praticar conceitos fundamentais de programação e acompanhar a evolução da organização, estruturação e persistência de dados de um projeto.
 
-O projeto começou como uma aplicação simples e evoluiu gradualmente, passando por arrays, listas, métodos e, atualmente, uma estrutura dividida em diferentes classes.
+O projeto começou como uma aplicação simples e evoluiu gradualmente, passando por variáveis, arrays, listas, métodos e, atualmente, uma estrutura dividida em diferentes classes com gravação de dados em arquivo.
 
 ---
 
 ## 📌 Versão atual
 
-### `v1.1.1`
+### `V.2.1.0`
 
-Nesta versão, foi realizada uma **correção no funcionamento da opção de saída do programa**.
+Nesta versão, foi introduzida a classe **`Persistencia`** para salvar e carregar os contatos em um arquivo de texto (`contatos.txt`).
 
-Também foi mantida a estrutura modular introduzida na `v1.1.0`, dividindo o projeto em três classes:
+* **Carregamento automático:** Os dados são lidos do arquivo ao iniciar a aplicação.
+* **Salvamento automático:** Os dados são gravados no arquivo ao optar por sair do sistema.
+
+A estrutura modular foi expandida e agora divide o projeto em quatro classes principais:
 
 ```text
 Principal.java
 Agenda.java
 Uteis.java
+Persistencia.java
 ```
 
 ---
 
 # 🚀 Funcionalidades
 
-O sistema possui atualmente:
+O sistema possui atualmente um CRUD básico e persistência:
 
 | Opção | Funcionalidade                |
 | ----: | ----------------------------- |
-|     1 | ➕ Adicionar contato           |
-|     2 | 📋 Listar contatos            |
-|     3 | 🔎 Procurar contato           |
-|     4 | ✏️ Alterar contato            |
-|     5 | 🗑️ Excluir contato           |
-|     6 | 🚪 Sair                       |
-|     7 | ℹ️ Informações sobre a Agenda |
+|     1 | ➕ Adicionar contato            |
+|     2 | 📋 Listar contatos             |
+|     3 | 🔎 Procurar contato            |
+|     4 | ✏️ Alterar contato             |
+|     5 | 🗑️ Excluir contato            |
+|     6 | 🚪 Sair (com salvamento)      |
+|     7 | ℹ️ Informações sobre a Agenda  |
+|   --- | 💾 Persistência em arquivo     |
 
 ---
 
 # 🛠️ Tecnologias utilizadas
 
 * ☕ **Java**
-* `List`
-* `ArrayList`
-* `Scanner`
-* `JOptionPane`
-* `while`
-* `switch`
+* `List` e `ArrayList`
+* I/O (Entrada e Saída): `FileWriter`, `PrintWriter`, `BufferedReader`
+* `Scanner` e `JOptionPane`
+* Estruturas de controle: `while`, `switch`, `for`, `if-else`
 * Métodos `static`
-* `boolean`
-* `equalsIgnoreCase()`
-* `add()`
-* `get()`
-* `set()`
-* `remove()`
+* Tipos primitivos: `boolean`
+* Métodos de String: `equalsIgnoreCase()`
+* Métodos de Lista: `add()`, `get()`, `set()`, `remove()`, `size()`
 * Pacotes Java
 
 ---
@@ -69,13 +69,17 @@ package br.edu.principal;
 Estrutura atual:
 
 ```text
-src/
-└── br/
-    └── edu/
-        └── principal/
-            ├── Principal.java
-            ├── Agenda.java
-            └── Uteis.java
+Agenda-Contatos/
+├── .gitignore
+├── README.md
+└── src/
+    └── br/
+        └── edu/
+            └── principal/
+                ├── Principal.java
+                ├── Agenda.java
+                ├── Uteis.java
+                └── Persistencia.java
 ```
 
 ---
@@ -84,39 +88,20 @@ src/
 
 ## `Principal.java`
 
-Responsável pelo **fluxo principal da aplicação**.
-
-Suas responsabilidades são:
+Responsável pelo **fluxo principal da aplicação**. Suas responsabilidades são:
 
 * Criar as listas de contatos;
-* Criar o `Scanner`;
-* Inicializar o programa;
-* Controlar o `while`;
-* Receber a opção do usuário;
-* Encaminhar cada opção para a classe responsável.
-
-O menu utiliza um `switch` para direcionar as operações:
-
-```java
-switch (opcao) {
-    case 1 -> Agenda.adicionar(sc, nomes, celulares, emails);
-    case 2 -> Agenda.listar(nomes, celulares, emails);
-    case 3 -> Agenda.pesquisar(sc, nomes, celulares, emails);
-    case 4 -> Agenda.atualizar(sc, nomes, celulares, emails);
-    case 5 -> Agenda.excluir(sc, nomes, celulares, emails);
-    case 6 -> continuar = Uteis.sair();
-    case 7 -> Uteis.sobre();
-    default -> System.out.println("Opção inválida!");
-}
-```
+* Acionar o carregamento inicial dos dados via classe `Persistencia`;
+* Inicializar o programa e o `Scanner`;
+* Controlar o loop `while`;
+* Receber a opção do usuário e encaminhar cada opção para a classe responsável;
+* Acionar o salvamento dos dados ao encerrar.
 
 ---
 
 ## `Agenda.java`
 
-A classe `Agenda` concentra as funcionalidades diretamente relacionadas aos contatos.
-
-### Métodos
+A classe `Agenda` concentra as funcionalidades diretamente relacionadas ao CRUD dos contatos.
 
 | Método        | Responsabilidade              |
 | ------------- | ----------------------------- |
@@ -130,204 +115,28 @@ Essa separação deixa a classe `Principal` mais limpa e facilita a manutenção
 
 ---
 
+## `Persistencia.java`
+
+Nova classe responsável pela gravação e leitura física dos dados, garantindo que os contatos não sejam perdidos ao fechar o programa.
+
+| Método       | Responsabilidade                                    |
+| ------------ | --------------------------------------------------- |
+| `carregar()` | Lê `contatos.txt` e preenche as listas na inicialização |
+| `salvar()`   | Grava as listas no `contatos.txt` ao encerrar o sistema |
+
+---
+
 ## `Uteis.java`
 
-A classe `Uteis` concentra funcionalidades auxiliares do programa.
-
-### Métodos
+A classe `Uteis` concentra funcionalidades auxiliares do programa e interface.
 
 | Método                  | Responsabilidade                  |
 | ----------------------- | --------------------------------- |
 | `mostraInicializacao()` | Exibe o título e a versão         |
 | `mostraMenu()`          | Exibe o menu                      |
 | `selecionaOpcao()`      | Recebe a opção escolhida          |
-| `sair()`                | Encerra o programa                |
-| `sobre()`               | Exibe informações sobre o projeto |
-
-A classe utiliza `JOptionPane` na funcionalidade **Sobre**.
-
----
-
-# ➕ Adicionar contato
-
-A opção **Adicionar contato** solicita:
-
-```text
-Digite o nome:
-Digite o celular:
-Digite o email:
-```
-
-Os dados são armazenados nas listas através do método:
-
-```java
-add()
-```
-
-Após o cadastro, o programa informa:
-
-```text
-Contato adicionado com sucesso!
-```
-
----
-
-# 📋 Listar contatos
-
-A opção **Listar contatos** verifica se existem contatos cadastrados.
-
-Caso a agenda esteja vazia:
-
-```text
-Nenhum contato cadastrado!
-```
-
-Caso existam contatos, o programa percorre as listas utilizando um `for` e exibe:
-
-* Nome;
-* Celular;
-* Email.
-
----
-
-# 🔎 Procurar contato
-
-A pesquisa é realizada através do nome.
-
-O método utiliza:
-
-```java
-equalsIgnoreCase()
-```
-
-Assim, a pesquisa não diferencia letras maiúsculas e minúsculas.
-
-Exemplo:
-
-```text
-João
-joão
-JOÃO
-```
-
-podem ser encontrados durante a pesquisa.
-
-A variável `boolean encontrado` controla se o contato foi localizado.
-
----
-
-# ✏️ Alterar contato
-
-A opção **Alterar contato** procura um contato pelo nome.
-
-Após encontrar sua posição, o programa solicita:
-
-* Novo nome;
-* Novo celular;
-* Novo email.
-
-Os valores são atualizados utilizando:
-
-```java
-set()
-```
-
----
-
-# 🗑️ Excluir contato
-
-A opção **Excluir contato** procura o contato pelo nome.
-
-Quando encontrado, os dados são removidos das três listas:
-
-```java
-nomes.remove(i);
-celulares.remove(i);
-emails.remove(i);
-```
-
-O `break` interrompe a busca após a exclusão.
-
----
-
-# 🚪 Encerramento do programa
-
-Na versão `v1.1.0`, existia um problema no método `sair()`.
-
-O método recebia `continuar` como parâmetro:
-
-```java
-Uteis.sair(continuar);
-```
-
-Porém, alterações feitas em um `boolean` recebido como parâmetro não modificavam a variável original da classe `Principal`.
-
-Na versão `v1.1.1`, o funcionamento foi corrigido.
-
-Agora:
-
-```java
-case 6 -> continuar = Uteis.sair();
-```
-
-E o método:
-
-```java
-public static boolean sair() {
-    System.out.println("Saindo da Agenda de Contatos...");
-    return false;
-}
-```
-
-Quando `false` é retornado, a variável `continuar` também recebe `false`:
-
-```text
-continuar = false
-       ↓
-while (continuar)
-       ↓
-   encerra
-```
-
-Dessa forma, a opção **Sair** passa a encerrar corretamente o programa.
-
----
-
-# ℹ️ Sobre
-
-A opção **7 — Informações Sobre a Agenda de Contatos** utiliza `JOptionPane` para exibir uma mensagem em uma janela.
-
-Atualmente:
-
-```text
-Desenvolvido por Roger M. Sarmento!
-```
-
----
-
-# 💾 Armazenamento dos contatos
-
-Os contatos são armazenados utilizando três listas:
-
-```java
-List<String> nomes = new ArrayList<>();
-List<String> celulares = new ArrayList<>();
-List<String> emails = new ArrayList<>();
-```
-
-Cada posição representa um contato.
-
-Exemplo:
-
-```text
-Índice 0
-
-nomes[0]      → João
-celulares[0]  → 99999-9999
-emails[0]     → joao@email.com
-```
-
-As três listas utilizam o mesmo índice para manter os dados relacionados.
+| `sair()`                | Controla o encerramento           |
+| `sobre()`               | Exibe informações usando `JOptionPane` |
 
 ---
 
@@ -340,128 +149,37 @@ A organização do projeto pode ser representada da seguinte forma:
                  │    Principal    │
                  │                 │
                  │ Fluxo principal │
-                 └────────┬────────┘
-                          │
-              ┌───────────┴───────────┐
-              │                       │
-              ▼                       ▼
-      ┌───────────────┐       ┌────────────────┐
-      │    Agenda     │       │     Uteis      │
-      │               │       │                │
-      │ Adicionar     │       │ Inicialização  │
-      │ Listar        │       │ Menu           │
-      │ Pesquisar     │       │ Selecionar     │
-      │ Atualizar     │       │ Sair           │
-      │ Excluir       │       │ Sobre          │
-      └───────────────┘       └────────────────┘
+                 └────┬───────┬────┘
+                      │       │
+     ┌────────────────┴───────┴────────────────┐
+     │                │                        │
+     ▼                ▼                        ▼
+┌───────────────┐ ┌────────────────┐ ┌────────────────┐
+│    Agenda     │ │  Persistencia  │ │     Uteis      │
+│               │ │                │ │                │
+│ Adicionar     │ │ Carregar dados │ │ Inicialização  │
+│ Listar        │ │ Salvar dados   │ │ Menu           │
+│ Pesquisar     │ │                │ │ Selecionar     │
+│ Atualizar     │ │                │ │ Sair           │
+│ Excluir       │ │                │ │ Sobre          │
+└───────────────┘ └────────────────┘ └────────────────┘
 ```
 
 ---
 
 # 📈 Evolução do projeto
 
-## `v0.0.0` — Primeiro protótipo
+| Versão | Estrutura | Principais conceitos |
+|---|---|---|
+| **V.0.0.0** | Variáveis simples | `String`, `Scanner`, `if-else`, `switch`, `while` |
+| **V.0.1.0** | Arrays | Vetores, índices, `for` e capacidade fixa |
+| **V.0.2.0** | `List` + `ArrayList` | Coleções, tamanho dinâmico, `add()`, `get()`, `remove()`, `size()` |
+| **V.0.3.0** | `List` + `ArrayList` | Alteração de contatos com `set()` e CRUD |
+| **V.1.0.0** | Métodos | Organização do código em métodos |
+| **V.1.1.0** | Classes `Agenda` e `Uteis` | Separação de responsabilidades e organização do código |
+| **V.1.1.1** | Classes `Agenda` e `Uteis` | Correção do encerramento do sistema e opção "Sobre" |
+| **V.2.1.0** | Classe `Persistencia` | Persistência de dados em arquivos (`FileWriter`, `PrintWriter`, `BufferedReader`) |
 
-* Cadastro de apenas um contato.
-* Utilização de variáveis `String`.
+### Detalhes das Versões Anteriores
 
-## `v0.1.0` — Múltiplos contatos
-
-* Cadastro de vários contatos.
-* Utilização de arrays.
-* Capacidade inicialmente limitada.
-
-## `v0.2.0` — Utilização de listas
-
-* Substituição dos arrays por `List` e `ArrayList`.
-* Cadastro de vários contatos sem tamanho fixo.
-
-## `v0.3.0` — Atualização de contatos
-
-* Adicionada a função de alterar contatos.
-* Menu expandido.
-
-## `v1.0.0` — Organização por métodos
-
-* Funcionalidades separadas em métodos.
-* Código mais organizado.
-* Utilização de `boolean` para controle do programa.
-* Melhor separação das responsabilidades.
-
-## `v1.1.0` — Modularização
-
-* Criação da classe `Agenda`.
-* Criação da classe `Uteis`.
-* Separação das responsabilidades entre as classes.
-* `Principal` passou a controlar o fluxo principal.
-* `Agenda` passou a gerenciar os contatos.
-* `Uteis` passou a reunir funcionalidades auxiliares.
-* Adicionada a opção **7 — Sobre**.
-* Adicionado `JOptionPane`.
-
-## `v1.1.1` — Correção do encerramento
-
-* Corrigido o funcionamento da opção **Sair**.
-* `Uteis.sair()` passou a retornar `boolean`.
-* `Principal` utiliza o retorno para atualizar `continuar`.
-* O `while` agora é encerrado corretamente quando o usuário escolhe a opção 6.
-* Versão exibida na inicialização atualizada para `v1.1.1`.
-
----
-
-# 🎯 Objetivo do projeto
-
-O principal objetivo da Agenda de Contatos é acompanhar a evolução do aprendizado em **Java**, aplicando novos conceitos conforme o projeto cresce.
-
-A evolução atual é:
-
-```text
-Variáveis
-    ↓
-Arrays
-    ↓
-List / ArrayList
-    ↓
-Estruturas de repetição
-    ↓
-Condicionais
-    ↓
-Métodos
-    ↓
-Boolean
-    ↓
-Separação de responsabilidades
-    ↓
-Múltiplas classes
-    ↓
-Organização do projeto
-    ↓
-Correção e melhoria do código
-```
-
----
-
-# 🔮 Próximas melhorias
-
-Possíveis funcionalidades para versões futuras:
-
-* [ ] Criar uma classe `Contato`;
-* [ ] Aplicar Programação Orientada a Objetos;
-* [ ] Validar nome, celular e email;
-* [ ] Impedir contatos duplicados;
-* [ ] Ordenar contatos;
-* [ ] Salvar contatos em arquivos;
-* [ ] Utilizar banco de dados;
-* [ ] Criar interface gráfica;
-* [ ] Organizar o projeto em diferentes pacotes;
-* [ ] Melhorar a interface do sistema.
-
----
-
-# 👨‍💻 Autor
-
-**Andresson Viana Gaspar**
-
-Projeto desenvolvido para **estudo e prática de Java**, acompanhando a evolução dos fundamentos de programação, organização de código e desenvolvimento de aplicações.
-
-> 🚀 **Aprendendo, praticando e evoluindo a cada versão.**
+* **V.0.0.0 — Primeiro protótipo:** Cadastro de apenas um contato usando variáveis
