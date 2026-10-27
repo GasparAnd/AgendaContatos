@@ -7,6 +7,12 @@ import java.util.Scanner;
 public class Principal {
 	
 	public static void main(String[] args) {
+		
+		Contato contato1 = new Contato();
+
+		contato1.nome = "Arthur Dent";
+		contato1.celular = "4242-4242";
+		contato1.email = "arthur@galaxy.com";
 
 
         List<String> nomes = new ArrayList<>();
